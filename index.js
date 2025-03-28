@@ -10,7 +10,31 @@ app.use(express.urlencoded({extended : true}));
 app.use(express.json());
 
 app.get("/", (req, res)=>{
-    res.send("hello");
+    res.render("index.ejs");
+});
+
+app.get("/login", (req, res)=>{
+    res.render("login.ejs");
+});
+
+app.get("/options", (req, res)=>{
+    res.render("options.ejs");
+});
+
+app.get("/moodtracker", (req, res)=>{
+    res.render("mood.ejs");
+});
+
+app.get("/help", (req, res)=>{
+    res.render("help.ejs");
+});
+
+app.get("/community", (req, res)=>{
+    res.render("community.ejs");
+});
+
+app.get("/counselling", (req, res)=>{
+    res.render("counselling.ejs");
 });
 
 let port = 8080;

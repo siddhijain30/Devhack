@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Help Resources</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #F8BBD0, #C5CAE9);
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+        .container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 18px;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            background-color: #7E57C2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .options button:hover {
+            background-color: #5E35B1;
+        }
+        .options button.selected {
+            background-color: #FFC107;
+            color: black;
+        }
+        .navigation-buttons {
+            margin-top: 15px;
+        }
+        .navigation-buttons button {
+            padding: 8px 16px;
+            margin: 5px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .navigation-buttons button.back {
+            background-color: #FFC107;
+            color: white;
+        }
+        .navigation-buttons button.back:hover {
+            background-color: #FFA000;
+        }
+        .navigation-buttons button.next {
+            background-color: #7E57C2;
+            color: white;
+        }
+        .navigation-buttons button.next:hover {
+            background-color: #5E35B1;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #333;
+            text-align: left;
+        }
+        .result h3 {
+            color: #7E57C2;
+            font-weight: bold;
+        }
+        .result ul {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Find Self-Help Resources</h2>
+        <div id="content">
+            <div class="question" id="question">1. What is your primary focus for self-help?</div>
+            <div class="options" id="options">
+                <!-- Options will be dynamically generated -->
+            </div>
+            <div class="navigation-buttons" id="navigation">
+                <button class="back" onclick="goBack()">Back</button>
+                <button class="next" onclick="goNext()">Next</button>
+            </div>
+        </div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                text: "1. What is your primary focus for self-help?",
+                options: ["Mental Health", "Physical Fitness", "Work-Life Balance", "Personal Growth"]
+            },
+            {
+                text: "2. How much time can you dedicate to self-help daily?",
+                options: ["15-30 minutes", "30-60 minutes", "1-2 hours", "More than 2 hours"]
+            },
+            {
+                text: "3. What type of resources do you prefer?",
+                options: ["Books", "Videos", "Mobile Apps", "Online Communities"]
+            },
+            {
+                text: "4. What motivates you the most?",
+                options: ["Relaxation", "Achievement", "Connection with Others", "Structure and Discipline"]
+            },
+            {
+                text: "5. Would you like to track your progress?",
+                options: ["Yes, absolutely!", "No, I prefer flexibility", "Maybe", "Not sure"]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let responses = [];
+
+        function selectOption(option, buttonElement) {
+            responses[currentQuestion] = option; 
+
+           
+            const buttons = document.querySelectorAll(".options button");
+            buttons.forEach(btn => btn.classList.remove("selected")); 
+            buttonElement.classList.add("selected"); 
+        }
+
+        function displayQuestion() {
+            const questionElement = document.getElementById('question');
+            const optionsElement = document.getElementById('options');
+
+           questionElement.innerText = questions[currentQuestion].text;
+            optionsElement.innerHTML = questions[currentQuestion].options
+                .map(option => {
+                    const isSelected = responses[currentQuestion] === option ? "selected" : "";
+                    return `<button class="${isSelected}" onclick="selectOption('${option}', this)">${option}</button>`;
+                })
+                .join('');
+        }
+
+        function goNext() {
+            if (!responses[currentQuestion]) {
+                alert("Please select an option before proceeding.");
+                return;
+            }
+
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                displayQuestion();
+            } else {
+                provideResources();
+            }
+        }
+
+        function goBack() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+            }
+        }
+
+        function provideResources() {
+            const resultElement = document.getElementById('result');
+            document.getElementById('content').style.display = "none"; 
+            let resourceMessage = "<h3>Your Suggested Self-Help Resources:</h3>";
+
+            if (responses.includes("Mental Health")) {
+                resourceMessage += `
+                    <h4>Mental Health Resources:</h4>
+                    <ul>
+                        <li><a href="https://www.headspace.com/" target="_blank">Headspace (Meditation App)</a></li>
+                        <li><a href="https://www.mind.org.uk/" target="_blank">Mind UK (Mental Health Support)</a></li>
+                        <li>Recommended Book: "The Happiness Trap" by Dr. Russ Harris</li>
+                    </ul>`;
+            }
+            if (responses.includes("Physical Fitness")) {
+                resourceMessage += `
+                    <h4>Physical Fitness Resources:</h4>
+                    <ul>
+                        <li><a href="https://www.fitnessblender.com/" target="_blank">Fitness Blender (Workout Videos)</a></li>
+                        <li><a href="https://www.myfitnesspal.com/" target="_blank">MyFitnessPal (Nutrition & Exercise Tracker)</a></li>
+                        <li>Recommended Book: "Atomic Habits" by James Clear</li>
+                    </ul>`;
+            }
+            if (responses.includes("Work-Life Balance")) {
+                resourceMessage += `
+                    <h4>Work-Life Balance Resources:</h4>
+                    <ul>
+                        <li><a href="https://todoist.com/" target="_blank">Todoist (Task Management App)</a></li>
+                        <li><a href="https://www.calm.com/" target="_blank">Calm (Relaxation and Sleep App)</a></li>
+                        <li>Recommended Book: "Essentialism" by Greg McKeown</li>
+                    </ul>`;
+            }
+            if (responses.includes("Personal Growth")) {
+                resourceMessage += `
+                    <h4>Personal Growth Resources:</h4>
+                    <ul>
+                        <li><a href="https://www.coursera.org/" target="_blank">Coursera (Online Courses)</a></li>
+                        <li><a href="https://www.goodreads.com/" target="_blank">Goodreads (Book Recommendations)</a></li>
+                        <li>Recommended Book: "Grit" by Angela Duckworth</li>
+                    </ul>`;
+            }
+
+            resultElement.innerHTML = resourceMessage;
+        }
+        displayQuestion();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Tracker with Saved Selection</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #a8edea, #fed6e3);
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .container {
+            background-color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+        .container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 18px;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .options button:hover {
+            background-color: #45a049;
+        }
+        .options button.selected {
+            background-color: #FFC107;
+            color: black;
+        }
+        .navigation-buttons {
+            margin-top: 15px;
+        }
+        .navigation-buttons button {
+            padding: 8px 16px;
+            margin: 5px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .navigation-buttons button.back {
+            background-color: #FFC107;
+            color: white;
+        }
+        .navigation-buttons button.back:hover {
+            background-color: #FFA000;
+        }
+        .navigation-buttons button.next {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .navigation-buttons button.next:hover {
+            background-color: #388E3C;
+        }
+    </style>
+</head>
+<body class="tracker">
+
+    <div class="container">
+        <h2>Mood Tracker</h2>
+        <div id="content">
+            <div class="question" id="question">1. How would you describe your mood right now?</div>
+            <div class="options" id="options">
+            </div>
+            <div class="navigation-buttons" id="navigation">
+                <button class="back" onclick="goBack()">Back</button>
+                <button class="next" onclick="goNext()">Next</button>
+            </div>
+        </div>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                text: "1. How would you describe your mood right now?",
+                options: ["Happy", "Sad", "Angry", "Relaxed"]
+            },
+            {
+                text: "2. On a scale of 1 to 10, how positive do you feel today?",
+                options: ["1-3 (Low)", "4-6 (Moderate)", "7-8 (Good)", "9-10 (Great)"]
+            },
+            {
+                text: "3. What impacted your mood most today?",
+                options: ["Work", "Family", "Friends", "Personal Time"]
+            },
+            {
+                text: "4. Are you feeling energized or tired?",
+                options: ["Energized", "Tired", "Balanced", "Exhausted"]
+            },
+            {
+                text: "5. Which emoji best represents your mood?",
+                options: ["😊", "😢", "😡", "😌"]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let responses = [];
+
+        function selectOption(option, buttonElement) {
+            responses[currentQuestion] = option; // Save the response for the current question
+
+            // Highlight the selected button
+            const buttons = document.querySelectorAll(".options button");
+            buttons.forEach(btn => btn.classList.remove("selected")); // Remove 'selected' class from all buttons
+            buttonElement.classList.add("selected"); // Add 'selected' class to the clicked button
+        }
+
+        function displayQuestion() {
+            const questionElement = document.getElementById('question');
+            const optionsElement = document.getElementById('options');
+
+            // Display the current question
+            questionElement.innerText = questions[currentQuestion].text;
+
+            // Display the options for the current question
+            optionsElement.innerHTML = questions[currentQuestion].options
+                .map(option => {
+                    const isSelected = responses[currentQuestion] === option ? "selected" : "";
+                    return `<button class="${isSelected}" onclick="selectOption('${option}', this)">${option}</button>`;
+                })
+                .join('');
+        }
+
+        function goNext() {
+            if (!responses[currentQuestion]) {
+                alert("Please select an option before proceeding.");
+                return;
+            }
+
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                displayQuestion();
+            } else {
+                evaluateMood();
+            }
+        }
+
+        function goBack() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                displayQuestion();
+            }
+        }
+
+        function evaluateMood() {
+            let resultMessage = "Your mood analysis: ";
+
+            if (responses.includes("Happy") || responses.includes("Relaxed") || responses.includes("9-10 (Great)") || responses.includes("😊")) {
+                resultMessage += "You seem to be in a positive mood! Keep it up!";
+            } else if (responses.includes("Sad") || responses.includes("Exhausted") || responses.includes("1-3 (Low)") || responses.includes("😢")) {
+                resultMessage += "You might be feeling low today. Try engaging in activities that bring joy.";
+            } else if (responses.includes("Angry") || responses.includes("😡")) {
+                resultMessage += "You seem to be experiencing some frustration. Consider taking deep breaths or a short break.";
+            } else {
+                resultMessage += "You have a balanced mood. Stay mindful and enjoy your day!";
+            }
+
+            document.getElementById('content').style.display = "none"; // Hide the questions
+            document.getElementById('result').innerText = resultMessage; // Display the result
+        }
+
+        // Initialize the first question
+        displayQuestion();
+    </script>
+
+</body>
+</html>

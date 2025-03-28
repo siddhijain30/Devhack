@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Mental Wellness</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            ;
+        }
+
+        /* Body Styling */
+        body {
+            background: linear-gradient(to right, #a8edea, #fed6e3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Container */
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 350px;
+        }
+
+        /* Heading */
+        h2 {
+            color: #4a90e2;
+            margin-bottom: 10px;
+        }
+
+        /* Input Fields */
+        label {
+            display: block;
+            text-align: left;
+            font-weight: bold;
+            margin: 10px 0 5px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        /* Button */
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+    </style>
+    <div class="container">
+        <p><img src="/image/logo.jpeg"></p>
+        <p class="subtitle">Break the Stigma. Start the conversation</p>
+
+        <form action="http://localhost:8080/options" method="GET">
+            <label for="username">Username:</label>
+            <input type="Username" id="username" name="username" required placeholder="Enter your Username">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required placeholder="Enter your password">
+            <button>Login</button>
+        </form>
+    </div>
+</body>
+
+</html>

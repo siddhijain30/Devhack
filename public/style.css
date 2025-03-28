@@ -1,1 +1,32 @@
-/* css code here!!  */
+/* login page css */
+
+.logo img {
+    text-align: center;
+    height: 150px;
+}
+
+table {
+    width: 90%;
+    height: 80%;
+    border-collapse: collapse;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    ;
+}
+
+/* Body Styling */
+body {
+    background: linear-gradient(to right, #a8edea, #fed6e3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+

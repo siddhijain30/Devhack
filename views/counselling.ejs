@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anonymous Counseling Consultancy</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #FFCCBC, #FFE0B2);
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            background-color: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+        .container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .container p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            margin: 10px 0;
+            text-align: left;
+        }
+        .form-group label {
+            font-size: 14px;
+            color: #666;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .form-group textarea {
+            resize: none;
+            height: 100px;
+        }
+        button {
+            width: 100%;
+            padding: 12px 20px;
+            background-color: #FF7043;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #D84315;
+        }
+        .message {
+            margin-top: 20px;
+            font-size: 14px;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Anonymous Counseling Consultancy</h2>
+        <p>Need someone to talk to? Share your thoughts or concerns with us anonymously.</p>
+        <form id="counselingForm">
+            <div class="form-group">
+                <label for="topic">What topic would you like to discuss?</label>
+                <input type="text" id="topic" placeholder="e.g., Stress, Relationships, Workload" required>
+            </div>
+            <div class="form-group">
+                <label for="details">Describe your situation (optional):</label>
+                <textarea id="details" placeholder="Share as much or as little as you'd like..."></textarea>
+            </div>
+            <button type="submit">Submit Anonymously</button>
+        </form>
+        <div id="responseMessage" class="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('counselingForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the form from reloading the page
+            const responseMessage = document.getElementById('responseMessage');
+            responseMessage.innerText = "Thank you for sharing! Your submission has been received. Our counselor will provide guidance soon.";
+        });
+    </script>
+
+</body>
+</html>

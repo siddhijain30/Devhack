@@ -3,12 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Chaitanya</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #89CFF0, #FFB6C1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 100vh;
+            padding: 20px 0;
+            font-family: "Arial", sans-serif;
+            text-align: center;
+            color: #fff;
+        }
+
+        .logo img {
+            width: 200px;
+            height: auto;
+        }
+
+        .quote {
+            font-size: 32px;
+            font-weight: bold;
+            max-width: 80%;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        button {
+            background-color: #ff6b81;
+            padding: 12px 30px;
+            border-radius: 25px;
+            border: none;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s ease-in-out;
+        }
+
+        .login:hover {
+            background-color: #ff4757;
+        }
+    </style>
 </head>
 <body>
-    
-    <!-- html index page -->
-    <!-- create diff. html files for differet pages with ".ejs" extension -->
-
+    <div class="logo">
+        <img src="/image/logo.jpeg" alt="Logo">
+    </div>
+    <div class="quote">
+        "Your mental health is a priority. Your happiness is essential. Your self-care is a necessity."
+    </div>
+    <form method="get" action="http://localhost:8080/login" class="login">
+        <button>Login</button>
+    </form>
 </body>
 </html>
